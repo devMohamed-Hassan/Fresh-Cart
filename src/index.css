@@ -19,6 +19,9 @@ body {
   --font-family: "Encode Sans Expanded", sans-serif;
   --rating-color: #ffc908;
 }
+.active{
+  @apply text-[var(--main-color)]
+}
 
 body {
   font-family: var(--font-family) !important;

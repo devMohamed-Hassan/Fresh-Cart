@@ -1,8 +1,14 @@
 import { useEffect } from "react";
+import { createBrowserRouter, RouterProvider, Routes } from "react-router-dom";
+
 import "./App.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { initFlowbite } from "flowbite";
-import { createBrowserRouter, RouterProvider, Routes } from "react-router-dom";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+
 import Layout from "./Components/Layout/Layout";
 import Home from "./Components/Home/Home";
 import NotFound from "./Components/NotFound/NotFound";
@@ -35,7 +41,7 @@ function App() {
   }, []); // on mounting, Native Flowbite without Framework
   return (
     <>
-      
+
       <RouterProvider router={routes}></RouterProvider>
     </>
   );

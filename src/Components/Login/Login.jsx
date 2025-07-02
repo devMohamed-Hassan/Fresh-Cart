@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { userContext } from "../../Context/UserContext";
 
 function Login() {
+  const { setToken } = useContext(userContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
@@ -18,11 +20,14 @@ function Login() {
         values
       );
       if (data.message === "success") {
+
         setSuccessMessage("Login successful! Redirecting...");
         setErrorMessage("");
         resetForm();
 
         setTimeout(() => {
+          localStorage.setItem("userToken", data.token);
+          setToken(data.token);
           navigate("/");
         }, 2000);
       } else {

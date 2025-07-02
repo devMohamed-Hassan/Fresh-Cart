@@ -28,7 +28,6 @@ function Home() {
     cssEase: "ease-in-out",
   };
 
-  console.log(images);
 
   return (
     <>

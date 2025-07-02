@@ -1,9 +1,20 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/images/freshcart-logo.svg";
+import { userContext } from "../../Context/UserContext";
+
+
+
 
 function Navbar() {
+  const navigate = useNavigate();
+  const { token } = useContext(userContext);
+  const handleSignout = () => {
+    localStorage.removeItem("userToken");
+    setToken("");
+    navigate("/");
+  };
   return (
     <nav className="bg-white  w-full z-20 top-0 start-0 border-b border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -31,9 +42,12 @@ function Navbar() {
             <li>
               <i className="fa fa-brands fa-youtube"></i>
             </li>
-            <li>
-              <NavLink className="cursor-pointer">SignOut</NavLink>
-            </li>
+            {token && <li>
+              <NavLink className="cursor-pointer"
+                onClick={handleSignout}
+              >SignOut</NavLink>
+            </li>}
+
           </ul>
           <button
             data-collapse-toggle="navbar-sticky"
@@ -107,22 +121,24 @@ function Navbar() {
                 Brands
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/login"
-                className="block py-2 px-3 text-gray-900 rounded-sm md:p-0"
-              >
-                Login
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/register"
-                className="block py-2 px-3 text-gray-900 rounded-sm md:p-0"
-              >
-                Register
-              </NavLink>
-            </li>
+            {!token && <>
+              <li>
+                <NavLink
+                  to="/login"
+                  className="block py-2 px-3 text-gray-900 rounded-sm md:p-0"
+                >
+                  Login
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/register"
+                  className="block py-2 px-3 text-gray-900 rounded-sm md:p-0"
+                >
+                  Register
+                </NavLink>
+              </li>
+            </>}
           </ul>
         </div>
       </div>

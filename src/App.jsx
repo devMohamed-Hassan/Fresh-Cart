@@ -19,6 +19,7 @@ import Categories from "./Components/Categories/Categories";
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import PublicRoute from "./Components/PublicRoute/PublicRoute";
 
 function App() {
 
@@ -33,8 +34,8 @@ function App() {
         { path: "brands", element: <ProtectedRoute><Brands /></ProtectedRoute> },
         { path: "products", element: <ProtectedRoute><Products /></ProtectedRoute> },
         { path: "categories", element: <ProtectedRoute><Categories /></ProtectedRoute> },
-        { path: "register", element: <Register /> },
-        { path: "login", element: <Login /> },
+        { path: "register", element: <PublicRoute><Register /> </PublicRoute> },
+        { path: "login", element: <PublicRoute><Login /></PublicRoute> },
         { path: "*", element: <NotFound /> },
       ],
     },
@@ -43,7 +44,7 @@ function App() {
   useEffect(() => {
     initFlowbite();
   }, []); // on mounting, Native Flowbite without Framework
-  
+
   return (
     <>
       <RouterProvider router={routes}></RouterProvider>

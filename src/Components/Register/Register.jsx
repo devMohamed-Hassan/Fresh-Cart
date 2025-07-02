@@ -4,25 +4,37 @@ import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, { resetForm }) => {
     try {
       const { data } = await axios.post(
         `https://ecommerce.routemisr.com/api/v1/auth/signup`,
         values
       );
-      setSuccessMessage("Registration successful! Welcome aboard.");
-      setErrorMessage("");
-      formik.resetForm();
+      if (data.message === "success") {
+        setSuccessMessage("Registration successful! Welcome aboard.");
+        setErrorMessage("");
+        resetForm();
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      } else {
+        setErrorMessage("Unexpected response. Please try again.");
+        setSuccessMessage("");
+      }
     } catch (error) {
       setErrorMessage(error.response?.data?.message || "Something went wrong");
       setSuccessMessage("");
     }
   };
+
+
 
   const validationSchema = Yup.object({
     name: Yup.string()

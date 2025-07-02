@@ -18,30 +18,34 @@ import Products from "./Components/Products/Products";
 import Categories from "./Components/Categories/Categories";
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 
 function App() {
+
+
   const routes = createBrowserRouter([
     {
       path: "",
       element: <Layout />,
       children: [
-        { index: true, element: <Home /> },
-        { path: "cart", element: <Cart /> },
-        { path: "brands", element: <Brands /> },
-        { path: "products", element: <Products /> },
-        { path: "categories", element: <Categories /> },
+        { index: true, element: <ProtectedRoute><Home /></ProtectedRoute> },
+        { path: "cart", element: <ProtectedRoute><Cart /></ProtectedRoute> },
+        { path: "brands", element: <ProtectedRoute><Brands /></ProtectedRoute> },
+        { path: "products", element: <ProtectedRoute><Products /></ProtectedRoute> },
+        { path: "categories", element: <ProtectedRoute><Categories /></ProtectedRoute> },
         { path: "register", element: <Register /> },
         { path: "login", element: <Login /> },
         { path: "*", element: <NotFound /> },
       ],
     },
   ]);
+
   useEffect(() => {
     initFlowbite();
   }, []); // on mounting, Native Flowbite without Framework
+  
   return (
     <>
-
       <RouterProvider router={routes}></RouterProvider>
     </>
   );

@@ -1,5 +1,8 @@
 import { useEffect } from "react";
-import { createBrowserRouter, RouterProvider, Routes } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 
 import "./App.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -7,7 +10,6 @@ import { initFlowbite } from "flowbite";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 
 import Layout from "./Components/Layout/Layout";
 import Home from "./Components/Home/Home";
@@ -22,7 +24,7 @@ import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import PublicRoute from "./Components/PublicRoute/PublicRoute";
 
 function App() {
-
+  const queryClient = new QueryClient();
 
   const routes = createBrowserRouter([
     {
@@ -34,7 +36,7 @@ function App() {
         { path: "brands", element: <ProtectedRoute><Brands /></ProtectedRoute> },
         { path: "products", element: <ProtectedRoute><Products /></ProtectedRoute> },
         { path: "categories", element: <ProtectedRoute><Categories /></ProtectedRoute> },
-        { path: "register", element: <PublicRoute><Register /> </PublicRoute> },
+        { path: "register", element: <PublicRoute><Register /></PublicRoute> },
         { path: "login", element: <PublicRoute><Login /></PublicRoute> },
         { path: "*", element: <NotFound /> },
       ],
@@ -43,12 +45,14 @@ function App() {
 
   useEffect(() => {
     initFlowbite();
-  }, []); // on mounting, Native Flowbite without Framework
+  }, []);
 
   return (
-    <>
-      <RouterProvider router={routes}></RouterProvider>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={routes} />
+      <ReactQueryDevtools />
+
+    </QueryClientProvider>
   );
 }
 

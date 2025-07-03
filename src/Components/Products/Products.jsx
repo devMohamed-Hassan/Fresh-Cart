@@ -1,41 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { PropagateLoader   } from "react-spinners";
+import { PropagateLoader } from "react-spinners";
+import useRecentProducts from "../../Hooks/useRecentProducts";
 
 function Products() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const getAllProducts = async () => {
-    try {
-      const { data } = await axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
-      setProducts(data.data);
-    } catch (error) {
-      //console.log(error.message);
-      setErrorMessage("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
-
+  const { data, isError, error, isLoading, isFetching } = useRecentProducts();
   return (
     <div className="container mx-auto p-4">
-      {loading ? (
+      {isLoading ? (
         <div className="flex justify-center items-center min-h-[200px]">
-          <PropagateLoader   size={20} color="#0aad0a" />
+          <PropagateLoader size={20} color="#0aad0a" />
         </div>
-      ) : errorMessage ? (
-        <p className="text-center text-xl font-semibold text-red-500">{errorMessage}</p>
+      ) : isError ? (
+        <p className="text-center text-xl font-semibold text-red-500">{error}</p>
       ) : (
         <>
           <h1 className="text-2xl font-bold mb-4">Products</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {products?.map((item) => <Product product={item} key={item.id} />)}
+            {data?.map((item) => <Product product={item} key={item.id} />)}
           </div>
         </>
       )}

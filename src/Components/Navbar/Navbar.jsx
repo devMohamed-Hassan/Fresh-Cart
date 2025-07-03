@@ -1,147 +1,104 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import styles from "./Navbar.module.css";
 import logo from "../../assets/images/freshcart-logo.svg";
 import { userContext } from "../../Context/UserContext";
 
-
-
-
 function Navbar() {
+  const { token, setToken } = useContext(userContext);
   const navigate = useNavigate();
-  const { token } = useContext(userContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const handleSignout = () => {
     localStorage.removeItem("userToken");
     setToken("");
     navigate("/");
   };
+
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+
+  const navLinkClasses = ({ isActive }) =>
+    `block px-4 py-2 rounded-md text-sm font-semibold transition-colors ${isActive ? "text-main" : "text-gray-700 hover:text-green-600"
+    }`;
+
   return (
-    <nav className="bg-white  w-full z-20 top-0 start-0 border-b border-gray-200">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <NavLink
-          to="/"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
-        >
-          <img src={logo} className="h-8" alt="Logo" />
+    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="container mx-auto flex items-center justify-between px-4 py-3">
+
+        <NavLink to="/" className="flex items-center gap-2">
+          <img src={logo} className="h-8" alt="FreshCart" />
         </NavLink>
 
-        <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <ul className="flex gap-x-3">
-            <li>
-              <i className="fa fa-brands fa-instagram"></i>
-            </li>
-            <li>
-              <i className="fa fa-brands fa-tiktok"></i>
-            </li>
-            <li>
-              <i className="fa fa-brands fa-twitter"></i>
-            </li>
-            <li>
-              <i className="fa fa-brands fa-linkedin"></i>
-            </li>
-            <li>
-              <i className="fa fa-brands fa-youtube"></i>
-            </li>
-            {token && <li>
-              <NavLink className="cursor-pointer"
-                onClick={handleSignout}
-              >SignOut</NavLink>
-            </li>}
-
-          </ul>
-          <button
-            data-collapse-toggle="navbar-sticky"
-            type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-            aria-controls="navbar-sticky"
-            aria-expanded="false"
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
+        <div className="hidden md:flex items-center gap-6">
+          <NavLink to="/" className={navLinkClasses}>Home</NavLink>
+          <NavLink to="/cart" className={navLinkClasses}>Cart</NavLink>
+          <NavLink to="/products" className={navLinkClasses}>Products</NavLink>
+          <NavLink to="/categories" className={navLinkClasses}>Categories</NavLink>
+          <NavLink to="/brands" className={navLinkClasses}>Brands</NavLink>
+          {!token ? (
+            <>
+              <NavLink to="/login" className={navLinkClasses}>Login</NavLink>
+              <NavLink to="/register" className={navLinkClasses}>Register</NavLink>
+            </>
+          ) : (
+            <button
+              onClick={handleSignout}
+              className="flex items-center gap-2 bg-red-600 text-white hover:bg-red-700 hover:text-white transition-colors duration-200 px-2 py-1 rounded-md text-sm font-semibold"
             >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M1 1h15M1 7h15M1 13h15"
-              />
+              <i className="fa-solid fa-right-from-bracket"></i>
+              Sign Out
+            </button>
+
+          )}
+        </div>
+
+        <div className="flex items-center gap-4">
+          <ul className="hidden md:flex gap-3 text-lg text-gray-500">
+            <li><i className="fa-brands fa-instagram hover:text-pink-600"></i></li>
+            <li><i className="fa-brands fa-tiktok hover:text-black"></i></li>
+            <li><i className="fa-brands fa-twitter hover:text-blue-500"></i></li>
+            <li><i className="fa-brands fa-linkedin hover:text-blue-700"></i></li>
+            <li><i className="fa-brands fa-youtube hover:text-red-600"></i></li>
+          </ul>
+
+          <button
+            type="button"
+            className="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+            onClick={toggleMenu}
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
-
-        <div
-          className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-          id="navbar-sticky"
-        >
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
-            <li>
-              <NavLink
-                to="/"
-                className="block py-2 px-3 text-white rounded-sm md:bg-transparent  md:p-0"
-                aria-current="page"
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/cart"
-                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100   md:p-0"
-              >
-                Cart
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/products"
-                className="block py-2 px-3 text-gray-900 rounded-sm 0 md:p-0"
-              >
-                Products
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/categories"
-                className="block py-2 px-3 text-gray-900 rounded-sm md:p-0"
-              >
-                Categories
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/brands"
-                className="block py-2 px-3 text-gray-900 rounded-sm md:p-0"
-              >
-                Brands
-              </NavLink>
-            </li>
-            {!token && <>
-              <li>
-                <NavLink
-                  to="/login"
-                  className="block py-2 px-3 text-gray-900 rounded-sm md:p-0"
-                >
-                  Login
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/register"
-                  className="block py-2 px-3 text-gray-900 rounded-sm md:p-0"
-                >
-                  Register
-                </NavLink>
-              </li>
-            </>}
-          </ul>
-        </div>
       </div>
+
+      {isMenuOpen && (
+        <div className="md:hidden px-4 pb-4">
+          <NavLink to="/" className={navLinkClasses} onClick={toggleMenu}>Home</NavLink>
+          <NavLink to="/cart" className={navLinkClasses} onClick={toggleMenu}>Cart</NavLink>
+          <NavLink to="/products" className={navLinkClasses} onClick={toggleMenu}>Products</NavLink>
+          <NavLink to="/categories" className={navLinkClasses} onClick={toggleMenu}>Categories</NavLink>
+          <NavLink to="/brands" className={navLinkClasses} onClick={toggleMenu}>Brands</NavLink>
+
+          {!token ? (
+            <div className="flex gap-4 mt-2">
+              <NavLink to="/login" className={navLinkClasses} onClick={toggleMenu}>Login</NavLink>
+              <NavLink to="/register" className={navLinkClasses} onClick={toggleMenu}>Register</NavLink>
+            </div>
+          ) : (
+            <button
+              onClick={() => {
+                handleSignout();
+                toggleMenu();
+              }}
+              className="block text-red-600 hover:text-red-800 text-sm font-semibold px-4 py-2"
+            >
+              Sign Out
+            </button>
+          )}
+        </div>
+      )}
+
     </nav>
   );
 }

@@ -101,180 +101,167 @@ function Register() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen px-4 bg-gray-50">
-      <h2 className="self-start mb-6 text-2xl font-bold text-gray-800">
-        Register Now:
-      </h2>
-
-      {errorMessage && (
-        <div className="w-full max-w-6xl mx-auto mb-4 p-4 bg-red-100 text-red-700 border border-red-400 rounded-lg">
-          {errorMessage}
-        </div>
-      )}
-
-      {successMessage && (
-        <div className="w-full max-w-6xl mx-auto mb-4 p-4 bg-green-100 text-green-700 border border-green-400 rounded-lg">
-          {successMessage}
-        </div>
-      )}
-
+    <div className="flex justify-center items-center min-h-screen px-4 bg-gray-50">
       <form
-        className="bg-white shadow-md rounded-lg p-8 w-full max-w-6xl mx-auto"
+        className="w-full sm:max-w-md bg-white shadow-lg rounded-2xl px-6 py-8 space-y-6"
         onSubmit={formik.handleSubmit}
       >
+        <h2 className="text-2xl font-bold text-gray-800 text-center">
+          Register Now
+        </h2>
 
-        <div className="mb-5 relative">
-          <label
-            htmlFor="name"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Name:
+        {errorMessage && (
+          <div className="p-3 rounded-md bg-red-100 text-red-700 border border-red-300 text-sm">
+            {errorMessage}
+          </div>
+        )}
+
+        {successMessage && (
+          <div className="p-3 rounded-md bg-green-100 text-green-700 border border-green-300 text-sm">
+            {successMessage}
+          </div>
+        )}
+
+        <div className="relative">
+          <label htmlFor="name" className="block mb-1 text-sm font-medium text-gray-700">
+            Name
           </label>
           <input
             type="text"
             name="name"
             id="name"
-            className={`bg-gray-50 border ${formik.touched.name && formik.errors.name
-              ? "border-red-500"
-              : formik.touched.name && !formik.errors.name
-                ? "border-green-500"
-                : "border-gray-300"
-              } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
             placeholder="Your full name"
             value={formik.values.name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            className={`w-full px-4 py-2.5 text-sm rounded-md border focus:outline-none focus:ring-2 transition
+          ${formik.touched.name && formik.errors.name
+                ? "border-red-500 focus:ring-red-300"
+                : formik.touched.name
+                  ? "border-green-500 focus:ring-green-300"
+                  : "border-gray-300 focus:ring-blue-300"
+              } bg-gray-50`}
           />
           {renderValidationIcon("name")}
           {formik.touched.name && formik.errors.name && (
-            <p className="text-red-500 text-sm mt-1">{formik.errors.name}</p>
+            <p className="mt-1 text-sm text-red-500">{formik.errors.name}</p>
           )}
         </div>
 
-        <div className="mb-5 relative">
-          <label
-            htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Email:
+
+        <div className="relative">
+          <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700">
+            Email
           </label>
           <input
             type="email"
             name="email"
             id="email"
-            className={`bg-gray-50 border ${formik.touched.email && formik.errors.email
-              ? "border-red-500"
-              : formik.touched.email && !formik.errors.email
-                ? "border-green-500"
-                : "border-gray-300"
-              } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
             placeholder="example@example.com"
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            className={`w-full px-4 py-2.5 text-sm rounded-md border focus:outline-none focus:ring-2 transition
+          ${formik.touched.email && formik.errors.email
+                ? "border-red-500 focus:ring-red-300"
+                : formik.touched.email
+                  ? "border-green-500 focus:ring-green-300"
+                  : "border-gray-300 focus:ring-blue-300"
+              } bg-gray-50`}
           />
           {renderValidationIcon("email")}
           {formik.touched.email && formik.errors.email && (
-            <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
+            <p className="mt-1 text-sm text-red-500">{formik.errors.email}</p>
           )}
         </div>
 
-        <div className="mb-5 relative">
-          <label
-            htmlFor="password"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Password:
+        <div className="relative">
+          <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-700">
+            Password
           </label>
           <input
             type="password"
             name="password"
             id="password"
-            className={`bg-gray-50 border ${formik.touched.password && formik.errors.password
-              ? "border-red-500"
-              : formik.touched.password && !formik.errors.password
-                ? "border-green-500"
-                : "border-gray-300"
-              } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
-            placeholder="Enter your password"
+            placeholder="••••••••"
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            className={`w-full px-4 py-2.5 text-sm rounded-md border focus:outline-none focus:ring-2 transition
+          ${formik.touched.password && formik.errors.password
+                ? "border-red-500 focus:ring-red-300"
+                : formik.touched.password
+                  ? "border-green-500 focus:ring-green-300"
+                  : "border-gray-300 focus:ring-blue-300"
+              } bg-gray-50`}
           />
           {renderValidationIcon("password")}
           {formik.touched.password && formik.errors.password && (
-            <p className="text-red-500 text-sm mt-1">
-              {formik.errors.password}
-            </p>
+            <p className="mt-1 text-sm text-red-500">{formik.errors.password}</p>
           )}
         </div>
 
-        <div className="mb-5 relative">
-          <label
-            htmlFor="repassword"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Re-Password:
+        <div className="relative">
+          <label htmlFor="rePassword" className="block mb-1 text-sm font-medium text-gray-700">
+            Confirm Password
           </label>
           <input
             type="password"
-            id="repassword"
             name="rePassword"
-            className={`bg-gray-50 border ${formik.touched.rePassword && formik.errors.rePassword
-              ? "border-red-500"
-              : formik.touched.rePassword && !formik.errors.rePassword
-                ? "border-green-500"
-                : "border-gray-300"
-              } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
-            placeholder="Re-enter your password"
+            id="rePassword"
+            placeholder="••••••••"
             value={formik.values.rePassword}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            className={`w-full px-4 py-2.5 text-sm rounded-md border focus:outline-none focus:ring-2 transition
+          ${formik.touched.rePassword && formik.errors.rePassword
+                ? "border-red-500 focus:ring-red-300"
+                : formik.touched.rePassword
+                  ? "border-green-500 focus:ring-green-300"
+                  : "border-gray-300 focus:ring-blue-300"
+              } bg-gray-50`}
           />
           {renderValidationIcon("rePassword")}
           {formik.touched.rePassword && formik.errors.rePassword && (
-            <p className="text-red-500 text-sm mt-1">
-              {formik.errors.rePassword}
-            </p>
+            <p className="mt-1 text-sm text-red-500">{formik.errors.rePassword}</p>
           )}
         </div>
 
-        <div className="mb-5 relative">
-          <label
-            htmlFor="phone"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Phone:
+        <div className="relative">
+          <label htmlFor="phone" className="block mb-1 text-sm font-medium text-gray-700">
+            Phone
           </label>
           <input
             type="tel"
-            id="phone"
             name="phone"
-            className={`bg-gray-50 border ${formik.touched.phone && formik.errors.phone
-              ? "border-red-500"
-              : formik.touched.phone && !formik.errors.phone
-                ? "border-green-500"
-                : "border-gray-300"
-              } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
+            id="phone"
             placeholder="01xxxxxxxxx"
             value={formik.values.phone}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            className={`w-full px-4 py-2.5 text-sm rounded-md border focus:outline-none focus:ring-2 transition
+          ${formik.touched.phone && formik.errors.phone
+                ? "border-red-500 focus:ring-red-300"
+                : formik.touched.phone
+                  ? "border-green-500 focus:ring-green-300"
+                  : "border-gray-300 focus:ring-blue-300"
+              } bg-gray-50`}
           />
           {renderValidationIcon("phone")}
           {formik.touched.phone && formik.errors.phone && (
-            <p className="text-red-500 text-sm mt-1">{formik.errors.phone}</p>
+            <p className="mt-1 text-sm text-red-500">{formik.errors.phone}</p>
           )}
         </div>
 
         <button
           type="submit"
-          className="text-white bg-[var(--main-color)] hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          className="w-full bg-green-600 hover:bg-green-700 text-white py-2.5 rounded-lg text-sm font-semibold shadow transition duration-150"
         >
           Register
         </button>
       </form>
     </div>
+
   );
 }
 

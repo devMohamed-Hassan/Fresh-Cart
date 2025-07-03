@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import "react-toastify/dist/ReactToastify.css";
 
 
 import "./App.css";
@@ -22,6 +23,10 @@ import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import PublicRoute from "./Components/PublicRoute/PublicRoute";
+import CartContextProvider from "./Context/CartContext";
+import { ToastContainer } from "react-toastify";
+
+
 
 function App() {
   const queryClient = new QueryClient();
@@ -49,9 +54,11 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={routes} />
+      <CartContextProvider>
+        <RouterProvider router={routes} />
+        <ToastContainer position="top-center" autoClose={3000} />
+      </CartContextProvider>
       <ReactQueryDevtools />
-
     </QueryClientProvider>
   );
 }

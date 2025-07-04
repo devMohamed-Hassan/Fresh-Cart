@@ -1,12 +1,22 @@
-import React, { useContext, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useContext, useState ,useEffect} from "react";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/images/freshcart-logo.svg";
 import { userContext } from "../../Context/UserContext";
+import { CartContext } from "../../Context/CartContext";
+
+import { FaShoppingCart } from "react-icons/fa";
 
 function Navbar() {
   const { token, setToken } = useContext(userContext);
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+
+
+
+const { cart } = useContext(CartContext);
+const totalItems = cart.products.reduce((acc, item) => acc + item.count, 0);
+
 
   const handleSignout = () => {
     localStorage.removeItem("userToken");
@@ -30,7 +40,14 @@ function Navbar() {
 
         <div className="hidden md:flex items-center gap-6">
           <NavLink to="/" className={navLinkClasses}>Home</NavLink>
-          <NavLink to="/cart" className={navLinkClasses}>Cart</NavLink>
+          <Link to="/cart" className="relative text-white hover:text-gray-200">
+            <FaShoppingCart size={24} className="text-green-600" />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full shadow">
+                {totalItems}
+              </span>
+            )}
+          </Link>
           <NavLink to="/products" className={navLinkClasses}>Products</NavLink>
           <NavLink to="/categories" className={navLinkClasses}>Categories</NavLink>
           <NavLink to="/brands" className={navLinkClasses}>Brands</NavLink>

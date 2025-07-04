@@ -17,7 +17,6 @@ const images = Object.values(
 
 function Home() {
   const { data, isError, error, isLoading } = useRecentProducts();
-  console.log("products response:", data);
 
   const settings = {
     dots: false,
@@ -115,14 +114,13 @@ function Product({ product }) {
         autoClose: 3000,
         theme: "colored",
       });
-      console.log("Added to cart successfully:", result);
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to add product to cart.", {
         position: "top-center",
         autoClose: 3000,
         theme: "colored",
       });
-      console.error("Failed to add to cart:", error.response?.data?.message || error.message);
+  
     }
   }
 

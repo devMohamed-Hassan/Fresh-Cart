@@ -54,7 +54,6 @@ const totalItems = cart.products.reduce((acc, item) => acc + item.count, 0);
           {!token ? (
             <>
               <NavLink to="/login" className={navLinkClasses}>Login</NavLink>
-              <NavLink to="/register" className={navLinkClasses}>Register</NavLink>
             </>
           ) : (
             <button
@@ -62,7 +61,7 @@ const totalItems = cart.products.reduce((acc, item) => acc + item.count, 0);
               className="flex items-center gap-2 bg-red-600 text-white hover:bg-red-700 hover:text-white transition-colors duration-200 px-2 py-1 rounded-md text-sm font-semibold"
             >
               <i className="fa-solid fa-right-from-bracket"></i>
-              Sign Out
+              
             </button>
 
           )}
@@ -100,7 +99,6 @@ const totalItems = cart.products.reduce((acc, item) => acc + item.count, 0);
           {!token ? (
             <div className="flex gap-4 mt-2">
               <NavLink to="/login" className={navLinkClasses} onClick={toggleMenu}>Login</NavLink>
-              <NavLink to="/register" className={navLinkClasses} onClick={toggleMenu}>Register</NavLink>
             </div>
           ) : (
             <button

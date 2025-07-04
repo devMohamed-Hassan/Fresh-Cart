@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { userContext } from "../../Context/UserContext";
 
 function Register() {
@@ -259,6 +259,13 @@ function Register() {
         >
           Register
         </button>
+        <p className="text-center text-sm text-gray-600">
+          Already have an account?{" "}
+          <Link to="/login" className="text-green-600 hover:underline font-medium">
+            Login 
+          </Link>
+         
+        </p>
       </form>
     </div>
 

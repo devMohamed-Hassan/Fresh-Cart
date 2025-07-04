@@ -1,85 +1,135 @@
-import React, { useContext, useState ,useEffect} from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/images/freshcart-logo.svg";
 import { userContext } from "../../Context/UserContext";
 import { CartContext } from "../../Context/CartContext";
 
-import { FaShoppingCart } from "react-icons/fa";
-
 function Navbar() {
   const { token, setToken } = useContext(userContext);
+  const { cart } = useContext(CartContext);
   const navigate = useNavigate();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAvatarMenuOpen, setIsAvatarMenuOpen] = useState(false);
+  const avatarRef = useRef(null);
 
-
-
-
-const { cart } = useContext(CartContext);
-const totalItems = cart.products.reduce((acc, item) => acc + item.count, 0);
-
+  const totalItems = cart.products.reduce((acc, item) => acc + item.count, 0);
+  const wishlistCount = 0;
+  const username = localStorage.getItem("userName");
 
   const handleSignout = () => {
     localStorage.removeItem("userToken");
+    localStorage.removeItem("userName")
     setToken("");
     navigate("/");
   };
 
-  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (avatarRef.current && !avatarRef.current.contains(event.target)) {
+        setIsAvatarMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const navLinkClasses = ({ isActive }) =>
-    `block px-4 py-2 rounded-md text-sm font-semibold transition-colors ${isActive ? "text-main" : "text-gray-700 hover:text-green-600"
+    `block py-1 text-sm font-semibold transition-colors duration-200 border-b-2 ${isActive
+      ? "text-green-600 border-[var(--main-color)]"
+      : "text-gray-700 border-transparent hover:text-green-600 hover:border-green-600"
     }`;
 
-  return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="container mx-auto flex items-center justify-between px-4 py-3">
 
+  return (
+    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+      <div className="container mx-auto flex items-center justify-between px-4 py-3">
         <NavLink to="/" className="flex items-center gap-2">
           <img src={logo} className="h-8" alt="FreshCart" />
         </NavLink>
 
         <div className="hidden md:flex items-center gap-6">
           <NavLink to="/" className={navLinkClasses}>Home</NavLink>
-          <Link to="/cart" className="relative text-white hover:text-gray-200">
-            <FaShoppingCart size={24} className="text-green-600" />
-            {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full shadow">
-                {totalItems}
-              </span>
-            )}
-          </Link>
           <NavLink to="/products" className={navLinkClasses}>Products</NavLink>
           <NavLink to="/categories" className={navLinkClasses}>Categories</NavLink>
           <NavLink to="/brands" className={navLinkClasses}>Brands</NavLink>
-          {!token ? (
-            <>
-              <NavLink to="/login" className={navLinkClasses}>Login</NavLink>
-            </>
-          ) : (
-            <button
-              onClick={handleSignout}
-              className="flex items-center gap-2 bg-red-600 text-white hover:bg-red-700 hover:text-white transition-colors duration-200 px-2 py-1 rounded-md text-sm font-semibold"
-            >
-              <i className="fa-solid fa-right-from-bracket"></i>
-              
-            </button>
+        </div>
 
+        <div className="hidden md:flex items-center gap-6">
+          {token && (
+            <>
+              <Link to="/wishlist" className="relative text-gray-600 hover:text-pink-500">
+                <i className="fa-regular fa-heart text-xl"></i>
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full shadow-sm">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
+
+              <Link to="/cart" className="relative text-gray-600 hover:text-green-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24"><path fill="currentColor" d="M17 18a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2M1 2h3.27l.94 2H20a1 1 0 0 1 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1l-.9 1.63l-.03.12a.25.25 0 0 0 .25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1zm6 16a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2m9-7l2.78-5H6.14l2.36 5z"></path></svg>
+                {totalItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full shadow-sm">
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+            </>
+          )}
+
+          {!token ? (
+            <NavLink to="/login" className={navLinkClasses}>
+              Login
+            </NavLink>
+          ) : (
+            <div className="relative flex items-center gap-2 px-2" ref={avatarRef}>
+              <span className="text-sm font-semibold text-gray-500 truncate max-w-[100px]">
+                {username || "User"}
+              </span>
+              <button
+                onClick={() => setIsAvatarMenuOpen(!isAvatarMenuOpen)}
+                className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors duration-200"
+              >
+                <i className="fa-solid fa-user text-md text-red-900 rounded"></i>
+              </button>
+
+              {isAvatarMenuOpen && (
+                <div className="absolute right-0 top-12 w-44  mt-1 shadow-lg z-50">
+                  <button
+                    onClick={() => {
+                      navigate("/change-password");
+                      setIsAvatarMenuOpen(false);
+                    }}
+                    className="flex items-center gap-2 w-full text-sm bg-red-500  text-white px-4 py-2 hover:bg-red-600 transition-colors duration-200"
+                  >
+                    <i className="fa-solid fa-key text-base"></i>
+                    Change Password
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      handleSignout();
+                      setIsAvatarMenuOpen(false);
+                    }}
+                    className="flex items-center gap-2 w-full text-sm bg-red-500 text-white px-4 py-2 hover:bg-red-600 transition-colors duration-200"
+                  >
+                    <i className="fa-solid fa-right-from-bracket text-base"></i>
+                    Log Out
+                  </button>
+                </div>
+              )}
+
+            </div>
           )}
         </div>
 
-        <div className="flex items-center gap-4">
-          <ul className="hidden md:flex gap-3 text-lg text-gray-500">
-            <li><i className="fa-brands fa-instagram hover:text-pink-600"></i></li>
-            <li><i className="fa-brands fa-tiktok hover:text-black"></i></li>
-            <li><i className="fa-brands fa-twitter hover:text-blue-500"></i></li>
-            <li><i className="fa-brands fa-linkedin hover:text-blue-700"></i></li>
-            <li><i className="fa-brands fa-youtube hover:text-red-600"></i></li>
-          </ul>
-
+        <div className="md:hidden">
           <button
-            type="button"
-            className="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
-            onClick={toggleMenu}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -89,31 +139,34 @@ const totalItems = cart.products.reduce((acc, item) => acc + item.count, 0);
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden px-4 pb-4">
-          <NavLink to="/" className={navLinkClasses} onClick={toggleMenu}>Home</NavLink>
-          <NavLink to="/cart" className={navLinkClasses} onClick={toggleMenu}>Cart</NavLink>
-          <NavLink to="/products" className={navLinkClasses} onClick={toggleMenu}>Products</NavLink>
-          <NavLink to="/categories" className={navLinkClasses} onClick={toggleMenu}>Categories</NavLink>
-          <NavLink to="/brands" className={navLinkClasses} onClick={toggleMenu}>Brands</NavLink>
+        <div className="md:hidden px-4 pb-4 space-y-1 bg-white shadow-md rounded-b-lg">
+          <NavLink to="/" className={navLinkClasses} onClick={() => setIsMenuOpen(false)}>Home</NavLink>
+          <NavLink to="/products" className={navLinkClasses} onClick={() => setIsMenuOpen(false)}>Products</NavLink>
+          <NavLink to="/categories" className={navLinkClasses} onClick={() => setIsMenuOpen(false)}>Categories</NavLink>
+          <NavLink to="/brands" className={navLinkClasses} onClick={() => setIsMenuOpen(false)}>Brands</NavLink>
+
+          {token && (
+            <>
+              <NavLink to="/wishlist" className={navLinkClasses} onClick={() => setIsMenuOpen(false)}>Wishlist</NavLink>
+              <NavLink to="/cart" className={navLinkClasses} onClick={() => setIsMenuOpen(false)}>Cart</NavLink>
+            </>
+          )}
 
           {!token ? (
-            <div className="flex gap-4 mt-2">
-              <NavLink to="/login" className={navLinkClasses} onClick={toggleMenu}>Login</NavLink>
-            </div>
+            <NavLink to="/login" className={navLinkClasses} onClick={() => setIsMenuOpen(false)}>Login</NavLink>
           ) : (
             <button
               onClick={() => {
                 handleSignout();
-                toggleMenu();
+                setIsMenuOpen(false);
               }}
-              className="block text-red-600 hover:text-red-800 text-sm font-semibold px-4 py-2"
+              className="block w-full text-left text-red-600 hover:bg-red-50 text-sm px-4 py-2 rounded-md"
             >
               Sign Out
             </button>
           )}
         </div>
       )}
-
     </nav>
   );
 }

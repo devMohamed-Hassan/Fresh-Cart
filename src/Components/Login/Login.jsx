@@ -27,6 +27,7 @@ function Login() {
 
         setTimeout(() => {
           localStorage.setItem("userToken", data.token);
+          localStorage.setItem("userName", data.user.name);
           setToken(data.token);
           navigate("/");
         }, 2000);

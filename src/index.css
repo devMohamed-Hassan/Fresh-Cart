@@ -23,7 +23,6 @@ body {
   @apply text-[var(--main-color)];
 } */
 
-
 body {
   font-family: var(--font-family) !important;
 }
@@ -38,15 +37,7 @@ body {
   box-shadow: var(--shadow);
   border: solid 1px var(--main-color);
 }
-.product .btn {
-  transition: transform 1s, opacity 1s;
-  transform: translateY(100%);
-  opacity: 0;
-}
-.product:hover .btn {
-  opacity: 1;
-  transform: translateY(0%);
-}
+
 .font-sm {
   font-size: 14px;
 }
@@ -58,4 +49,22 @@ body {
 }
 .bg-main-light {
   background-color: var(--light-color) !important;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00C951;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00C951;
 }

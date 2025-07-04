@@ -11,13 +11,13 @@ function Layout() {
         <Navbar />
       </header>
 
-      <main className="flex-grow">
+      <main className="flex-grow bg-gray-100">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 ">
           <Outlet />
         </div>
       </main>
 
-      <footer className="w-full border-t bg-gray-50 mt-12">
+      <footer className="w-full border-t bg-gray-50 p-8">
         <Footer />
       </footer>
       

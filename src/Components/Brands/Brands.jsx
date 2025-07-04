@@ -29,4 +29,4 @@ function Brands() {
   );
 }
 
-export default Brand;
+export default Brands;

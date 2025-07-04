@@ -6,7 +6,7 @@ export default function useBrands() {
           queryKey: ['brands'],
           queryFn: async () => {
                const res = await axios.get("https://ecommerce.routemisr.com/api/v1/brands");
-               return res.data;
+               return res.data.data;
           },
           staleTime: 1000 * 60 * 5,
      });

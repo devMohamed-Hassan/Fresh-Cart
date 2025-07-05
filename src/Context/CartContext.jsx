@@ -53,6 +53,7 @@ function CartContextProvider(props) {
         { count },
         { headers: { token } }
       );
+      await refreshCart();
       return response.data;
     } catch (error) {
       throw error;

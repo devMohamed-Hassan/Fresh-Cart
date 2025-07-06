@@ -4,6 +4,7 @@ import logo from "../../assets/images/freshcart-logo.svg";
 import { userContext } from "../../Context/UserContext";
 import { CartContext } from "../../Context/CartContext";
 import useClickOutside from "../../Hooks/useClick";
+import { useWishlist } from "../../Context/WishlistContext";
 
 function Navbar() {
   const { token, setToken } = useContext(userContext);
@@ -14,7 +15,8 @@ function Navbar() {
   const avatarRef = useRef(null);
   const menuRef = useRef(null);
   const totalItems = cart?.products?.reduce((acc, item) => acc + item.count, 0) || 0;
-  const wishlistCount = 1;
+  const { wishlist } = useWishlist();
+  const wishlistCount = wishlist.length
   const username = localStorage.getItem("userName") || "User";
 
   useClickOutside(menuRef, () => setIsMenuOpen(false), isMenuOpen);

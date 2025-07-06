@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../../Context/CartContext";
 import { toast } from "react-toastify";
 import { useWishlist } from "../../Context/WishlistContext";
@@ -6,7 +7,7 @@ import { useWishlist } from "../../Context/WishlistContext";
 function ProductCard({ product }) {
   const [loadingCart, setLoadingCart] = useState(false);
   const [loadingWishlist, setLoadingWishlist] = useState(false);
-
+  const navigate = useNavigate();
   const { addToCart } = useCart();
   const { title, price, imageCover, category, ratingsAverage, id } = product;
   const { addToWishlist, removeFromWishlist, isWishlisted } = useWishlist();
@@ -71,7 +72,9 @@ function ProductCard({ product }) {
   }
 
   return (
-    <div className="border border-gray-300 rounded-2xl p-5 hover:shadow-xl transition-shadow duration-300 product bg-white flex flex-col relative">
+    <div
+      onClick={() => navigate(`/productdetails/${id}`)}
+      className="cursor-pointer border border-gray-300 rounded-2xl p-5 hover:shadow-xl transition-shadow duration-300 product bg-white flex flex-col relative">
       <div className="relative mb-4 overflow-hidden rounded-xl aspect-w-1 aspect-h-1">
         <img
           src={imageCover}
@@ -89,7 +92,10 @@ function ProductCard({ product }) {
         </h2>
         <button
           className="bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full transition-colors duration-300 flex items-center justify-center w-7 h-7"
-          onClick={handleWishlist}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleWishlist();
+          }}
           disabled={loadingWishlist}
         >
           {loadingWishlist ? (
@@ -146,7 +152,10 @@ function ProductCard({ product }) {
           ? "opacity-70 cursor-not-allowed"
           : "hover:bg-green-600 hover:bg-opacity-90"
           }`}
-        onClick={handleAddToCart}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleAddToCart();
+        }}
         disabled={loadingCart}
       >
         {loadingCart ? (

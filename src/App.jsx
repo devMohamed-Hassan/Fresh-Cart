@@ -27,6 +27,7 @@ import CartContextProvider from "./Context/CartContext";
 import { ToastContainer } from "react-toastify";
 import { WishlistProvider } from "./Context/WishlistContext";
 import Wishlist from "./Components/Wishlist/Wishlist";
+import ProductDetails from "./Components/ProductDetails/ProductDetails";
 
 
 
@@ -43,6 +44,7 @@ function App() {
         { path: "wishlist", element: <ProtectedRoute> <Wishlist /></ProtectedRoute> },
         { path: "brands", element: <ProtectedRoute><Brands /></ProtectedRoute> },
         { path: "products", element: <ProtectedRoute><Products /></ProtectedRoute> },
+        { path: "productdetails/:id", element: <ProtectedRoute><ProductDetails /></ProtectedRoute> },
         { path: "categories", element: <ProtectedRoute><Categories /></ProtectedRoute> },
         { path: "register", element: <PublicRoute><Register /></PublicRoute> },
         { path: "login", element: <PublicRoute><Login /></PublicRoute> },

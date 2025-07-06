@@ -77,6 +77,7 @@ function Cart() {
       console.error("Failed to update quantity:", err);
     }
   };
+
   if (loading) {
     return (
       <div className="py-6">
@@ -178,11 +179,19 @@ function Cart() {
                   </li>
                 ))}
               </ul>
-              <div className="flex justify-end">
+              <div className="flex justify-between gap-4 mt-4">
+                <NavLink
+                  to={`/checkout/${cartItems?._id}`}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-semibold transition shadow"
+                >
+                  <FontAwesomeIcon icon={faMoneyBillWave} />
+                  Go to Checkout
+                </NavLink>
+
                 <button
                   onClick={handleClearCart}
                   disabled={clearing}
-                  className={`flex items-center gap-2 px-4 py-2 mt-4 rounded-lg text-sm font-semibold transition shadow ${clearing
+                  className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition shadow ${clearing
                     ? "bg-gray-400 cursor-not-allowed"
                     : "bg-red-600 hover:bg-red-700 text-white"
                     }`}
@@ -198,6 +207,7 @@ function Cart() {
                   )}
                 </button>
               </div>
+
             </div>
           </>
         )}

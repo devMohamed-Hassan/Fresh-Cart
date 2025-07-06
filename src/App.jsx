@@ -28,7 +28,7 @@ import { ToastContainer } from "react-toastify";
 import { WishlistProvider } from "./Context/WishlistContext";
 import Wishlist from "./Components/Wishlist/Wishlist";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
-
+import Checkout from "./Components/Checkout/Checkout";
 
 
 function App() {
@@ -41,6 +41,7 @@ function App() {
       children: [
         { index: true, element: <ProtectedRoute><Home /></ProtectedRoute> },
         { path: "cart", element: <ProtectedRoute><Cart /></ProtectedRoute> },
+        { path: "checkout/:id", element: <ProtectedRoute><Checkout /></ProtectedRoute> },
         { path: "wishlist", element: <ProtectedRoute> <Wishlist /></ProtectedRoute> },
         { path: "brands", element: <ProtectedRoute><Brands /></ProtectedRoute> },
         { path: "products", element: <ProtectedRoute><Products /></ProtectedRoute> },

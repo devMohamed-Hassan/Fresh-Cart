@@ -25,6 +25,8 @@ import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import PublicRoute from "./Components/PublicRoute/PublicRoute";
 import CartContextProvider from "./Context/CartContext";
 import { ToastContainer } from "react-toastify";
+import { WishlistProvider } from "./Context/WishlistContext";
+import Wishlist from "./Components/Wishlist/Wishlist";
 
 
 
@@ -38,6 +40,7 @@ function App() {
       children: [
         { index: true, element: <ProtectedRoute><Home /></ProtectedRoute> },
         { path: "cart", element: <ProtectedRoute><Cart /></ProtectedRoute> },
+        { path: "wishlist", element: <ProtectedRoute> <Wishlist /></ProtectedRoute> },
         { path: "brands", element: <ProtectedRoute><Brands /></ProtectedRoute> },
         { path: "products", element: <ProtectedRoute><Products /></ProtectedRoute> },
         { path: "categories", element: <ProtectedRoute><Categories /></ProtectedRoute> },
@@ -53,10 +56,13 @@ function App() {
   }, []);
 
   return (
+
     <QueryClientProvider client={queryClient}>
       <CartContextProvider>
-        <RouterProvider router={routes} />
-        <ToastContainer position="top-center" autoClose={3000} />
+        <WishlistProvider>
+          <RouterProvider router={routes} />
+          <ToastContainer position="top-center" autoClose={3000} />
+        </WishlistProvider>
       </CartContextProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>

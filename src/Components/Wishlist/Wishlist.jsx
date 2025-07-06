@@ -2,10 +2,10 @@ import React, { useContext, useState } from "react";
 import { useWishlist } from "../../Context/WishlistContext";
 import { BarLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import { CartContext } from "../../Context/CartContext";
+import { useCart } from "../../Context/CartContext";
 
 function Wishlist() {
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = useCart();
   const { wishlist, loading, removeFromWishlist } = useWishlist();
   const [loadingStates, setLoadingStates] = useState({});
 

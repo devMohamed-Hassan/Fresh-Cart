@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { CartContext } from "../../Context/CartContext";
+import { useCart } from "../../Context/CartContext";
 import { toast } from "react-toastify";
 import { useWishlist } from "../../Context/WishlistContext";
 
@@ -7,7 +7,7 @@ function ProductCard({ product }) {
   const [loadingCart, setLoadingCart] = useState(false);
   const [loadingWishlist, setLoadingWishlist] = useState(false);
 
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = useCart();
   const { title, price, imageCover, category, ratingsAverage, id } = product;
   const { addToWishlist, removeFromWishlist, isWishlisted } = useWishlist();
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { CartContext } from "../../Context/CartContext";
+import { useCart } from "../../Context/CartContext";
 import { BarLoader } from "react-spinners";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus, faShoppingCart, faMoneyBillWave } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +12,8 @@ function Cart() {
     updateCartItemQuantity,
     clearCart,
     removeCartItem
-  } = useContext(CartContext);
+  } = useCart();
+
 
   const [cartItems, setCartItems] = useState(null);
   const [loading, setLoading] = useState(true);

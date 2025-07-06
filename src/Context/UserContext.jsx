@@ -1,22 +1,27 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 
-export const userContext = createContext();
+export const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const savedToken = localStorage.getItem("userToken");
-    if (savedToken) setToken(savedToken);
-    setLoading(false);
+    const fetchToken = () => {
+      const savedToken = localStorage.getItem("userToken");
+      if (savedToken) setToken(savedToken);
+      setLoading(false);
+    };
+    fetchToken();
   }, []);
 
   return (
-    <userContext.Provider value={{ token, setToken, loading }}>
+    <UserContext.Provider value={{ token, setToken, loading }}>
       {children}
-    </userContext.Provider>
+    </UserContext.Provider>
   );
 };
 
 export default UserContextProvider;
+
+export const useUser = () => useContext(UserContext);

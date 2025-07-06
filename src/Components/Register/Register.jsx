@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { userContext } from "../../Context/UserContext";
+import { useUser } from "../../Context/UserContext";
 
 function Register() {
-  const { setToken } = useContext(userContext);
+  const { setToken } = useUser();
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
@@ -262,9 +262,9 @@ function Register() {
         <p className="text-center text-sm text-gray-600">
           Already have an account?{" "}
           <Link to="/login" className="text-green-600 hover:underline font-medium">
-            Login 
+            Login
           </Link>
-         
+
         </p>
       </form>
     </div>

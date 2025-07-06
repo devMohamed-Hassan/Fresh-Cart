@@ -1,13 +1,13 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/images/freshcart-logo.svg";
-import { userContext } from "../../Context/UserContext";
+import { useUser } from "../../Context/UserContext";
 import { useCart } from "../../Context/CartContext";
 import useClickOutside from "../../Hooks/useClick";
 import { useWishlist } from "../../Context/WishlistContext";
 
 function Navbar() {
-  const { token, setToken } = useContext(userContext);
+  const { token, setToken } = useUser();
   const { cart } = useCart();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);

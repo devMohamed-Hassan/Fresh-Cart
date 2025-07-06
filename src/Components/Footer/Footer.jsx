@@ -18,7 +18,7 @@ const Footer = () => {
             <input
               type="email"
               placeholder="Enter your email"
-              className="p-2 flex-grow rounded-l bg-green-500 text-white placeholder-white focus:outline-none  focus:ring-green-500 focus:border-green-400"
+              className="p-2 flex-grow rounded-l  text-gray-800 placeholder-gray-800 focus:outline-none  focus:ring-green-500 focus:border-green-400"
             />
             <button className="bg-green-500 p-2 rounded-r focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-400">
               <svg

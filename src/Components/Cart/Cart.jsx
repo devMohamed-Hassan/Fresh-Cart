@@ -2,8 +2,9 @@ import React, { useEffect, useState, useContext } from "react";
 import { CartContext } from "../../Context/CartContext";
 import { BarLoader } from "react-spinners";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faMinus, faShoppingCart, faMoneyBillWave } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
+
 
 function Cart() {
   const {
@@ -75,15 +76,18 @@ function Cart() {
       console.error("Failed to update quantity:", err);
     }
   };
+  if (loading) {
+    return (
+      <div className="py-6">
+        <BarLoader color="#0aad0a" height={4} width="100%" />
+      </div>
 
+    )
+  }
   return (
     <section className="w-full mt-8 mb-8 px-4 min-h-[300px]">
       <div className="bg-white  text-[#350C2E] w-full max-w-4xl mx-auto rounded-2xl p-6 shadow-lg max-h-[85vh] flex flex-col">
-        {loading ? (
-          <div className="py-6">
-            <BarLoader color="#0aad0a" height={4} width="100%" />
-          </div>
-        ) : cartItems?.products?.length === 0 ? (
+        {cartItems?.products?.length === 0 ? (
           <div className="flex-1 flex flex-col items-center justify-center text-center text-gray-500 font-medium gap-2 p-10">
             <p className="bg-gray-100 p-3 mb-3 rounded-sm">Your cart is empty.</p>
             <NavLink
@@ -94,28 +98,29 @@ function Cart() {
 
             </NavLink>
           </div>
-
         ) : (
           <>
-
             <div className="bg-gray-50 p-4 border border-gray-200 rounded-lg shadow-sm mb-4">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                <p className="text-gray-500 font-semibold ">
+                <p className="text-gray-500 font-semibold flex items-center gap-2">
+                  <FontAwesomeIcon icon={faShoppingCart} className="text-green-400" />
                   <span>Total items:</span>{" "}
-                  <span className="font-bold text-sm text-gray-400">
+                  <span className="font-bold text-sm text-gray-500">
                     {cartItems?.products?.reduce((acc, item) => acc + item.count, 0) ?? 0}
                   </span>
                 </p>
-                <p className="text-gray-500 font-semibold text-sm">
-                  Total price:{" "}
-                  <span className="text-green-700 font-bold text-base">
-                    +{cartItems?.totalCartPrice?.toLocaleString("en-US") ?? "0"}
-                  </span>{" "}
-                  <span className="text-gray-500 font-se">EGP</span>
+                <p className="text-gray-500 font-semibold text-sm flex items-center gap-2">
+                  <FontAwesomeIcon icon={faMoneyBillWave} className="text-green-500" />
+                  <span>
+                    Total price:{" "}
+                    <span className="text-green-700 font-bold text-base">
+                      +{cartItems?.totalCartPrice?.toLocaleString("en-US") ?? "0"}
+                    </span>{" "}
+                    <span className="text-gray-500 font-semibold">EGP</span>
+                  </span>
                 </p>
               </div>
             </div>
-
             <div className="flex flex-col gap-4 overflow-y-auto pr-1 custom-scrollbar flex-1">
               <ul className="space-y-4">
                 {cartItems?.products?.map((item) => (
@@ -128,7 +133,6 @@ function Cart() {
                       alt={item.product.title}
                       className="w-20 h-20 object-cover rounded-lg border border-gray-300"
                     />
-
                     <div className="flex-1 space-y-1 text-sm">
                       <h3 className="font-semibold line-clamp-2 text-gray-600">
                         {item.product.title}
@@ -151,10 +155,8 @@ function Cart() {
                         Remove
                       </button>
                     </div>
-
-
                     <div className="flex items-center justify-end sm:flex-col gap-2 min-w-[110px]">
-                      <div className="flex items-center border border-gray-200 rounded-md overflow-hidden shadow-sm">
+                      <div className="flex items-center  border-gray-200 rounded-md overflow-hidden ">
                         <button
                           onClick={() => handleDecrement(item.product._id, item.count)}
                           className="w-8 h-8 bg-red-500 hover:bg-red-600 text-white flex items-center justify-center"
@@ -175,7 +177,6 @@ function Cart() {
                   </li>
                 ))}
               </ul>
-
               <div className="flex justify-end">
                 <button
                   onClick={handleClearCart}

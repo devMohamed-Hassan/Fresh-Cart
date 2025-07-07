@@ -3,7 +3,7 @@ import { useCart } from "../../Context/CartContext";
 import { BarLoader } from "react-spinners";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus, faShoppingCart, faMoneyBillWave } from "@fortawesome/free-solid-svg-icons";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 
 function Cart() {
@@ -14,6 +14,7 @@ function Cart() {
     removeCartItem
   } = useCart();
 
+  const navigate = useNavigate();
 
   const [cartItems, setCartItems] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -136,7 +137,9 @@ function Cart() {
                       className="w-20 h-20 object-cover rounded-lg border border-gray-300"
                     />
                     <div className="flex-1 space-y-1 text-sm">
-                      <h3 className="font-semibold line-clamp-2 text-gray-600">
+                      <h3
+                        onClick={() => navigate(`/productdetails/${item.product._id}`)}
+                        className=" cursor-pointer font-semibold line-clamp-2 text-gray-600 hover:text-gray-800 hover:underline transition-colors duration-200">
                         {item.product.title}
                       </h3>
                       <p className="text-xs text-gray-500">

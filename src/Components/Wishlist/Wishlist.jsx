@@ -3,11 +3,13 @@ import { useWishlist } from "../../Context/WishlistContext";
 import { BarLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { useCart } from "../../Context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 function Wishlist() {
   const { addToCart } = useCart();
   const { wishlist, loading, removeFromWishlist } = useWishlist();
   const [loadingStates, setLoadingStates] = useState({});
+  const navigate = useNavigate();
 
   const setLoading = (productId, type, value) => {
     setLoadingStates((prev) => ({
@@ -94,8 +96,9 @@ function Wishlist() {
 
           return (
             <div
+              onClick={() => navigate(`/productdetails/${product.id}`)}
               key={product.id}
-              className="border border-gray-300 rounded-2xl p-5 flex flex-col bg-white relative"
+              className="cursor-pointer border border-gray-300 rounded-2xl p-5 flex flex-col bg-white relative"
             >
               <div className="relative mb-4 overflow-hidden rounded-xl aspect-w-1 aspect-h-1">
                 <img
@@ -112,7 +115,10 @@ function Wishlist() {
                   {product.title.split(" ").slice(0, 2).join(" ")}
                 </h2>
                 <button
-                  onClick={() => handleAddToCart(product)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleAddToCart(product)
+                  }}
                   className="w-10 h-10 bg-white hover:bg-green-100 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110"
                   disabled={isAddToCartLoading}
                 >
@@ -160,8 +166,12 @@ function Wishlist() {
                 </span>
               </p>
               <button
-                className="bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg py-2 mt-auto transition duration-300"
-                onClick={() => handleRemove(product.id)}
+                className="bg-red-500 hover:bg-red-800 text-white font-semibold rounded-lg py-2 mt-auto transition duration-300"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleRemove(product.id)
+                }
+                }
                 disabled={isRemoveLoading}
               >
                 {isRemoveLoading ? (

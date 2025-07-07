@@ -1,31 +1,55 @@
-import React from 'react';
-import useBrands from '../../Hooks/useBrands';
+import React from "react";
+import useBrands from "../../Hooks/useBrands";
+import { BarLoader } from "react-spinners";
+import NotFound from "../NotFound/NotFound";
+import { useNavigate } from "react-router-dom";
 
 function Brands() {
   const { data, isLoading, isError, error } = useBrands();
+  
+  if (isLoading) {
+    return (
+      <div className="py-6">
+        <BarLoader color="#0aad0a" height={4} width="100%" />
+      </div>
+    );
+  }
 
-  if (isLoading) return <p className="text-center text-gray-500">Loading brands...</p>;
-  if (isError) return <p className="text-center text-red-500">Error: {error.message}</p>;
+  if (isError) {
+    return (
+      <NotFound message={error.message} />
+    )
+  }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">
-        Brands ({data?.results || 0})
-      </h1>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {data?.data?.map((brand) => (
-          <div key={brand._id} className="border rounded-xl p-3 hover:shadow-md transition-shadow">
-            <img
-              src={brand.image}
-              alt={brand.name}
-              className="w-full h-32 object-contain mb-2"
-            />
-            <h2 className="text-center text-sm font-semibold">{brand.name}</h2>
-          </div>
+    <div className="p-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        {data?.map((brand) => (
+          <BrandCard key={brand._id} brand={brand} />
         ))}
       </div>
     </div>
+  );
+}
+
+function BrandCard({ brand }) {
+  const navigate = useNavigate();
+  console.log(brand)
+  return (
+    <div
+      onClick={() => navigate(`/products/${brand._id}`)}
+      className="group relative bg-white flex flex-col items-center border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer" >
+      <div className="w-full flex justify-center px-4 py-5">
+        <img
+          src={brand.image}
+          alt={brand.name}
+          className="max-w-full h-24 object-contain transition-transform duration-300 group-hover:scale-105 "
+        />
+      </div>
+      <div className="w-full text-center py-3 bg-green-400 mt-auto border-t border-gray-200">
+        <span className="text-lg   font-semibold  text-white">{brand.name}</span>
+      </div>
+    </div >
   );
 }
 

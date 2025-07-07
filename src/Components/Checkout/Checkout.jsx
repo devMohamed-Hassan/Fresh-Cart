@@ -128,11 +128,12 @@ function Checkout() {
         {successMessage && <p className="text-green-500 text-sm">{successMessage}</p>}
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Phone</label>
+          <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone</label>
           <div className="relative">
             <input
               type="tel"
               name="phone"
+              id="phone"
               placeholder="01XXXXXXXXX"
               value={formik.values.phone}
               onChange={formik.handleChange}
@@ -147,9 +148,10 @@ function Checkout() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">City</label>
+          <label htmlFor="city" className="block text-sm font-medium text-gray-700">City</label>
           <div className="relative">
             <select
+              id="city"
               name="city"
               value={formik.values.city}
               onChange={formik.handleChange}
@@ -166,7 +168,6 @@ function Checkout() {
                 </option>
               ))}
             </select>
-            {renderValidationIcon("city")}
           </div>
           {formik.touched.city && formik.errors.city && (
             <p className="text-sm text-red-500">{formik.errors.city}</p>
@@ -174,9 +175,10 @@ function Checkout() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Address</label>
+          <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
           <div className="relative">
             <input
+              id="address"
               type="text"
               name="address"
               placeholder="Street name, building, apartment..."

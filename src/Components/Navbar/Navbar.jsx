@@ -86,29 +86,37 @@ function Navbar() {
               </span>
               <button
                 onClick={() => setIsAvatarMenuOpen(!isAvatarMenuOpen)}
-                className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors duration-200"
+                className="w-8 h-8 rounded-full overflow-hidden border border-gray-300 hover:ring-2 hover:ring-green-500 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-600"
+                title="Profile menu"
+                aria-label="Toggle profile menu"
               >
-                <i className="fa-solid fa-circle-user text-3xl text-green-600 rounded"></i>
+                <img
+                  src={`https://ui-avatars.com/api/?name=${username}&background=00C950&color=fff&size=128`}
+                  alt={username}
+                  className="w-full h-full object-cover"
+                />
               </button>
 
-              {isAvatarMenuOpen && (
-                <div className="absolute right-0 top-12 w-45 mt-1 bg-white shadow-lg rounded-md z-50 overflow-hidden">
 
-                  <div className="px-4 py-3 bg-gray-100 border-b border-gray-300">
-                    <p className="text-sm text-gray-700 font-medium">
-                      <span className="block font-semibold">Welcome,</span><span className="text-gray-500 font-semibold">{username || "User"}</span>
+              {isAvatarMenuOpen && (
+                <div className="absolute right-0 top-14 w-56 mt-2 bg-white shadow-xl rounded-xl z-50 overflow-hidden">
+
+                  <div className="px-5 py-4 bg-green-500 border-b border-green-600">
+                    <p className="text-sm text-white font-medium leading-tight">
+                      <span className="block text-xs uppercase tracking-wide opacity-90">Welcome,</span>
+                      <span className="block text-base font-semibold">{username || "User"}</span>
                     </p>
                   </div>
 
                   <button
                     onClick={() => {
-                      navigate("/change-password");
+                      navigate("/manage-account");
                       setIsAvatarMenuOpen(false);
                     }}
-                    className="flex items-center gap-2 w-full text-sm text-gray-800 px-4 py-2 font-semibold hover:bg-gray-100 transition-colors duration-200"
+                    className="flex items-center gap-2 w-full text-sm text-gray-700 px-5 py-3 font-medium hover:bg-gray-100 transition-all duration-200"
                   >
-                    <i className="fa-solid fa-key text-base text-red-500"></i>
-                    Change Password
+                    <i className="fa-solid fa-user-cog text-gray-800"></i>
+                    Manage My Account
                   </button>
 
                   <button
@@ -116,13 +124,14 @@ function Navbar() {
                       handleSignout();
                       setIsAvatarMenuOpen(false);
                     }}
-                    className="flex items-center gap-2 w-full text-sm bg-red-600 font-semibold text-white px-4 py-2 hover:bg-red-800 transition-colors duration-200"
+                    className="flex items-center gap-2 w-full text-sm text-white bg-red-600 px-5 py-3 font-medium hover:bg-red-700 transition-all duration-200"
                   >
-                    <i className="fa-solid fa-right-from-bracket text-base"></i>
+                    <i className="fa-solid fa-right-from-bracket text-white text-base"></i>
                     Log Out
                   </button>
                 </div>
               )}
+
 
             </div>
           )}

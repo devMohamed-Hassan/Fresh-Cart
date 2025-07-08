@@ -34,7 +34,6 @@ function Brands() {
 
 function BrandCard({ brand }) {
   const navigate = useNavigate();
-  console.log(brand)
   return (
     <div
       onClick={() => {

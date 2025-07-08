@@ -29,6 +29,7 @@ import { WishlistProvider } from "./Context/WishlistContext";
 import Wishlist from "./Components/Wishlist/Wishlist";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
 import Checkout from "./Components/Checkout/Checkout";
+import ManageAccount from "./Components/ManageAccount/manageAccount";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
       element: <Layout />,
       children: [
         { index: true, element: <ProtectedRoute><Home /></ProtectedRoute> },
+        { path: "manage-account", element: <ProtectedRoute><ManageAccount /></ProtectedRoute> },
         { path: "cart", element: <ProtectedRoute><Cart /></ProtectedRoute> },
         { path: "checkout/:id", element: <ProtectedRoute><Checkout /></ProtectedRoute> },
         { path: "wishlist", element: <ProtectedRoute> <Wishlist /></ProtectedRoute> },

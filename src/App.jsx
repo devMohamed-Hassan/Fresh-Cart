@@ -45,7 +45,6 @@ function App() {
         { path: "wishlist", element: <ProtectedRoute> <Wishlist /></ProtectedRoute> },
         { path: "brands", element: <ProtectedRoute><Brands /></ProtectedRoute> },
         { path: "products", element: <ProtectedRoute><Products /></ProtectedRoute>, },
-        { path: "products/:slug", element: <ProtectedRoute><Products /></ProtectedRoute>, },
         { path: "productdetails/:id", element: <ProtectedRoute><ProductDetails /></ProtectedRoute> },
         { path: "categories", element: <ProtectedRoute><Categories /></ProtectedRoute> },
         { path: "register", element: <PublicRoute><Register /></PublicRoute> },

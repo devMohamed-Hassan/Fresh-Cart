@@ -37,7 +37,12 @@ function BrandCard({ brand }) {
   console.log(brand)
   return (
     <div
-      onClick={() => navigate(`/products/${brand._id}`)}
+      onClick={() => {
+        const params = new URLSearchParams();
+        params.set("brand", brand._id);
+        navigate(`/products?${params.toString()}`);
+      }}
+
       className="group relative bg-white flex flex-col items-center border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer" >
       <div className="w-full flex justify-center px-4 py-5">
         <img

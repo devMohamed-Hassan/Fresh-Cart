@@ -29,7 +29,7 @@ import { WishlistProvider } from "./Context/WishlistContext";
 import Wishlist from "./Components/Wishlist/Wishlist";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
 import Checkout from "./Components/Checkout/Checkout";
-import ManageAccount from "./Components/ManageAccount/manageAccount";
+import ManageAccount from "./Components/ManageAccount/ManageAccount";
 import ResetFlow from "./Components/ResetPasswordFlow/ResetFlow";
 
 

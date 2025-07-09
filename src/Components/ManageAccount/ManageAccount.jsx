@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import MyProfile from "../MyProfile/MyProfile";
 import { FaUserCircle, FaLock, FaMapMarkedAlt } from "react-icons/fa";
 import { RiRefund2Line } from "react-icons/ri";
+import ChangePassword from "../ChangePassword/ChangePassword";
+import UserAddresses from "../UserAddresses/UserAddresses";
 
 
 function ManageAccount() {
@@ -61,15 +63,11 @@ function ManageAccount() {
             </div>
           </nav>
         </aside>
-        <main className="flex-1 p-6 overflow-y-auto">
+        <main className="bg-gray-100 flex-1 p-6 overflow-y-auto">
           <div className="w-full mx-auto">
             {activeTab === "profile" && <MyProfile />}
-            {activeTab === "address" && (
-              <div className="text-gray-700">address</div>
-            )}
-            {activeTab === "changePassword" && (
-              <div className="text-gray-700">changePassword</div>
-            )}
+            {activeTab === "changePassword" && <ChangePassword />}
+            {activeTab === "address" && (<UserAddresses />)}
             {activeTab === "returns" && (
               <div className="text-gray-700">returns</div>
             )}

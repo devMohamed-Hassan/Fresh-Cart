@@ -69,7 +69,7 @@ function Login() {
       />
     );
   };
-  
+
   return (
     <div className="flex justify-center items-center min-h-screen px-4 bg-gray-50">
       <form
@@ -146,6 +146,12 @@ function Login() {
             <p className="mt-1 text-sm text-red-500">{formik.errors.password}</p>
           )}
         </div>
+        <div className="text-right">
+          <Link to="/reset" className="text-sm text-green-600 hover:underline">
+            Forgot Password?
+          </Link>
+        </div>
+
 
         <button
           type="submit"

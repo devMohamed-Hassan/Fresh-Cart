@@ -30,6 +30,7 @@ import Wishlist from "./Components/Wishlist/Wishlist";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
 import Checkout from "./Components/Checkout/Checkout";
 import ManageAccount from "./Components/ManageAccount/manageAccount";
+import ResetFlow from "./Components/ResetPasswordFlow/ResetFlow";
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
         { path: "categories", element: <ProtectedRoute><Categories /></ProtectedRoute> },
         { path: "register", element: <PublicRoute><Register /></PublicRoute> },
         { path: "login", element: <PublicRoute><Login /></PublicRoute> },
+        { path: "reset", element: <PublicRoute><ResetFlow /></PublicRoute> },
         { path: "*", element: <NotFound /> },
       ],
     },

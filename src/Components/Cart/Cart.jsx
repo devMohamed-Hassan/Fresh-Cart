@@ -81,7 +81,7 @@ function Cart() {
 
   if (loading) {
     return (
-      <div className="py-6">
+      <div className="py-2">
         <BarLoader color="#0aad0a" height={4} width="100%" />
       </div>
 

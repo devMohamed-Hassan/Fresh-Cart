@@ -71,16 +71,16 @@ function UserAddresses() {
   }
 
   if (addresses.length === 0) {
-    
-      <div
-        onClick={() => setShowForm(true)}
-        className="flex items-center justify-center p-4 bg-white border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:bg-gray-200 transition"
-      >
-        <div className="flex flex-col items-center text-gray-600">
-          <FaPlus className="text-xl mb-1" />
-          <span className="text-sm font-medium">Add New Address</span>
-        </div>
+
+    <div
+      onClick={() => setShowForm(true)}
+      className="flex items-center justify-center p-4 bg-white border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:bg-gray-200 transition"
+    >
+      <div className="flex flex-col items-center text-gray-600">
+        <FaPlus className="text-xl mb-1" />
+        <span className="text-sm font-medium">Add New Address</span>
       </div>
+    </div>
   }
 
   return (

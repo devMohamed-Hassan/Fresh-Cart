@@ -61,13 +61,17 @@ function Home() {
   const isPageLoading = categoriesLoading || brandsLoading || productsLoading;
   const hasError = categoriesError || brandsError || productsError;
 
+  if (isPageLoading) {
+    return (
+      <div className="py-2">
+        <BarLoader color="#0aad0a" height={4} width="100%" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
-      {isPageLoading ? (
-        <div className="py-6">
-          <BarLoader color="#0aad0a" height={4} width="100%" />
-        </div>
-      ) : hasError ? (
+      {hasError ? (
         <div className="flex-grow flex flex-col justify-center items-center text-center">
           <p className="text-xl font-bold text-red-500 mb-4">Error loading data!</p>
           {categoriesError && <p className="text-red-500 mb-2">Categories: {categoriesErrorMsg?.message || "Unknown error"}</p>}

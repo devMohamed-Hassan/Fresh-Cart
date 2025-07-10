@@ -11,7 +11,7 @@ function Layout() {
         <Navbar />
       </header>
 
-      <main className="flex-grow bg-gray-100 pb-10">
+      <main className="flex-grow bg-gray-200 pb-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen">
           <Outlet />
         </div>

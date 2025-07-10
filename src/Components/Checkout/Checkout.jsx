@@ -105,7 +105,7 @@ function Checkout() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
+    <div className="flex justify-center items-center min-h-screen px-4">
       <form
         onSubmit={formik.handleSubmit}
         className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg space-y-5"

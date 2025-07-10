@@ -76,8 +76,8 @@ function Home() {
         </div>
       ) : (
         <>
-          <div className="flex flex-col md:flex-row gap-2 w-full mt-6 px-4">
-            <div className="bg-white text-[#350C2E] w-1/3 rounded-xl p-4 shadow-md max-h-[400px] flex flex-col">
+          <div className="flex flex-col md:flex-row gap-4 w-full mt-6 px-4">
+            <div className="bg-white text-[#350C2E] lg:w-1/3 sm:w-full md:w-1/2 rounded-xl p-4 shadow-md max-h-[400px] sm:h-[250px] md:h-[250px] lg:h-[450px] flex flex-col">
               <h2 className="uppercase text-lg font-semibold mb-3 border-b border-gray-300 shadow-2xl">Categories</h2>
               <ul className="space-y-3 overflow-y-auto pr-1 flex-1 custom-scrollbar">
                 {categories?.map((cat) => (
@@ -96,14 +96,14 @@ function Home() {
               </ul>
             </div>
 
-            <div className="md:w-2/3 w-2/3 h-[400px] rounded-xl overflow-hidden shadow-md">
+            <div className="w-full md:w-1/2 h-[200px] sm:h-[250px] md:h-[250px] lg:h-[400px] rounded-xl overflow-hidden shadow-md">
               <Slider {...bannerSlider} className="w-full h-full">
                 {images.map((img, idx) => (
                   <div key={idx} className="w-full h-full">
                     <img
                       src={img}
                       alt={`slide-${idx}`}
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-cover md:object-contain"
                     />
                   </div>
                 ))}

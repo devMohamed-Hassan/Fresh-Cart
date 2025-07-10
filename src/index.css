@@ -61,10 +61,29 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #00C951;
+  background: #00c951;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00C951;
+  background: #00c951;
+}
+
+@keyframes bounceY {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-6px);
+  }
+  60% {
+    transform: translateY(4px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-bounceY {
+  animation: bounceY 0.8s ease-in-out infinite;
 }

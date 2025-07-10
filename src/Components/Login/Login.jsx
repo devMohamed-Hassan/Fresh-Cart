@@ -11,10 +11,12 @@ function Login() {
   const { setToken } = useUser();
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
+      setLoading(true);
       const { data } = await axios.post(
         `https://ecommerce.routemisr.com/api/v1/auth/signin`,
         values
@@ -38,6 +40,9 @@ function Login() {
     } catch (error) {
       setErrorMessage(error.response?.data?.message || "Login failed");
       setSuccessMessage("");
+    }
+    finally {
+      setLoading(flase);
     }
   };
 
@@ -71,7 +76,7 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen px-4 bg-gray-50">
+    <div className="flex justify-center items-center min-h-screen px-4">
       <form
         className="w-full sm:max-w-md bg-white shadow-lg rounded-2xl px-6 py-8 space-y-6"
         onSubmit={formik.handleSubmit}
@@ -155,10 +160,21 @@ function Login() {
 
         <button
           type="submit"
-          className="w-full bg-green-600 hover:bg-green-700 text-white py-2.5 rounded-lg text-sm font-semibold shadow transition duration-150"
+          disabled={loading}
+          className={`w-full py-2.5 rounded-lg text-sm font-semibold shadow transition duration-150
+    flex justify-center items-center gap-2
+    ${loading ? 'bg-green-400 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700 text-white'}`}
         >
-          Login
+          {loading ? (
+            <>
+              <span className="text-white">Logging in...</span>
+            </>
+          ) : (
+            "Login"
+          )}
         </button>
+
+
         <p className="text-center text-sm text-gray-600">
           Don't have an account?{" "}
           <Link to="/register" className="text-green-600 hover:underline font-medium">

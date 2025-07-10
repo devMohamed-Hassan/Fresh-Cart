@@ -8,7 +8,7 @@ function ResetFlow() {
   const [email, setEmail] = useState("");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center ">
       {step === 1 && (
         <ForgotPassword
           onNext={() => setStep(2)}

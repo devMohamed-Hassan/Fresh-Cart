@@ -16,7 +16,7 @@ function ManageAccount() {
     }`;
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-6xl bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
 
         <aside className="w-full md:w-64 border-r border-gray-200 bg-gray-50 p-6">
